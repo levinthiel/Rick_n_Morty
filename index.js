@@ -1,20 +1,19 @@
 import { CharacterCard } from "./components/CharacterCard/CharacterCard.js";
 import { generateButtons } from "./components/NavButton/NavButton.js";
+import { generateSearchBar } from "./components/SearchBar/SearchBar.js";
 
 generateButtons();
+generateSearchBar();
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
+
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-const maxPage = 1;
-const page = 1;
-const searchQuery = "";
-
+let searchQuery = "";
 let pageIndex = 1;
 let pageNumber = "";
 let endpoint = `https://rickandmortyapi.com/api/character`;

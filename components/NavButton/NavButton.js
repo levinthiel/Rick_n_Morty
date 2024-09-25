@@ -1,9 +1,21 @@
-// const navigation = document.querySelector('[data-js="navigation"]');
+import { generatePagi } from "../NavPagination/NavPagination.js";
 
-// export function generateButtons() {
-//   navigation.innerHTML = `
-//     <button class="button button--prev" data-js="button-prev">
-//         previous
-//       </button>
-//       <button class="button button--next" data-js="button-next">next</button>`;
-// }
+const navigation = document.querySelector('[data-js="navigation"]');
+
+export function generateButtons() {
+  const prevButton = document.createElement("button");
+  prevButton.classList.add("button");
+  prevButton.classList.add("button--prev");
+  prevButton.setAttribute("data-js", "button-prev");
+  prevButton.textContent = "previous";
+  navigation.append(prevButton);
+
+  generatePagi();
+
+  const nextButton = document.createElement("button");
+  nextButton.classList.add("button");
+  nextButton.classList.add("button--next");
+  nextButton.setAttribute("data-js", "button-next");
+  nextButton.textContent = "next";
+  navigation.append(nextButton);
+}

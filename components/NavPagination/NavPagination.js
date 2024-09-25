@@ -1,9 +1,9 @@
-// const navigation = document.querySelector('[data-js="navigation"]');
+const navigation = document.querySelector('[data-js="navigation"]');
 
-// export function generatePagi() {
-//   navigation.innerHTML = `
-//     <button class="button button--prev" data-js="button-prev">
-//         previous
-//       </button>
-//       <span class="navigation__pagination" data-js="pagination">1 / 1</span>
-// }
+export function generatePagi() {
+  const newPagi = document.createElement("SPAN");
+  newPagi.classList.add("navigation__pagination");
+  newPagi.setAttribute("data-js", "pagination");
+  newPagi.textContent = "1 / 1";
+  navigation.append(newPagi);
+}
