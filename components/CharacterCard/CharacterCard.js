@@ -1,5 +1,4 @@
 export function CharacterCard(src, name, status, type, occ) {
-  const cardContainer = document.querySelector('[data-js="card-container"]');
   const newCard = document.createElement("li");
   newCard.classList.add("card");
 
@@ -24,5 +23,5 @@ export function CharacterCard(src, name, status, type, occ) {
           </dl>
         </div>`;
 
-  cardContainer.append(newCard);
+  return newCard;
 }
