@@ -18,7 +18,6 @@ let pageIndex = 1;
 let pageNumber = "";
 let endpoint = `https://rickandmortyapi.com/api/character`;
 
-// ?page=${pageIndex}
 async function fetchCharacters() {
   cardContainer.innerHTML = "";
 
