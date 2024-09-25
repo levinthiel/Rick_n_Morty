@@ -16,23 +16,24 @@ const page = 1;
 const searchQuery = "";
 
 let pageIndex = 1;
+let pageNumber = "";
+let endpoint = `https://rickandmortyapi.com/api/character`;
 
-
+// ?page=${pageIndex}
 async function fetchCharacters() {
   cardContainer.innerHTML = "";
 
-  const endpoint = `https://rickandmortyapi.com/api/character?page=${pageIndex}`;
+  const fullUrl = `${endpoint}?page=${pageIndex}&name=${searchQuery}`;
 
-  const response = await fetch(endpoint);
+  const response = await fetch(fullUrl);
   const data = await response.json();
   const characters = data.results;
-  const pageNumber = data.info.pages;
+  pageNumber = data.info.pages;
 
-  pagination.textContent = ` ${pageIndex} / ${pageNumber} `
-  console.log(characters);
+  pagination.textContent = ` ${pageIndex} / ${pageNumber} `;
+  // console.log(characters);
 
   characters.forEach((character) => {
-
     //create character
     const src = character.image;
     const name = character.name;
@@ -42,21 +43,31 @@ async function fetchCharacters() {
     const newCharacterCard = CharacterCard(src, name, status, type, occ);
     cardContainer.append(newCharacterCard);
   });
- 
 }
 
-nextButton.addEventListener ("click", ()=> {
-    pageIndex++  
+nextButton.addEventListener("click", () => {
+  if (pageIndex < pageNumber) {
+    pageIndex++;
     fetchCharacters();
-})
-
-prevButton.addEventListener ("click", ()=> {
-  if (pageIndex > 1) {
-  pageIndex--  
-  fetchCharacters();
-  }else{
-    console.log("Page 0 lies in another dimension")
+  } else {
+    console.log(`The page lies in another dimension`);
   }
-})
+});
 
-fetchCharacters(); 
+prevButton.addEventListener("click", () => {
+  if (pageIndex > 1) {
+    pageIndex--;
+    fetchCharacters();
+  } else {
+    console.log("Page 0 lies in another dimension");
+  }
+});
+
+fetchCharacters();
+
+searchBar.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const searchInput = document.querySelector("input");
+  searchQuery = searchInput.value;
+  fetchCharacters();
+});
