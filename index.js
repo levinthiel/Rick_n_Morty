@@ -1,13 +1,13 @@
 import { CharacterCard } from "./components/CharacterCard/CharacterCard.js";
+import { generateButtons } from "./components/NavButton/NavButton.js";
+
+generateButtons();
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
-const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
@@ -45,14 +45,8 @@ async function fetchCharacters() {
   });
 }
 
-nextButton.addEventListener("click", () => {
-  if (pageIndex < pageNumber) {
-    pageIndex++;
-    fetchCharacters();
-  } else {
-    console.log(`The page lies in another dimension`);
-  }
-});
+const prevButton = document.querySelector('[data-js="button-prev"]');
+const nextButton = document.querySelector('[data-js="button-next"]');
 
 prevButton.addEventListener("click", () => {
   if (pageIndex > 1) {
@@ -60,6 +54,15 @@ prevButton.addEventListener("click", () => {
     fetchCharacters();
   } else {
     console.log("Page 0 lies in another dimension");
+  }
+});
+
+nextButton.addEventListener("click", () => {
+  if (pageIndex < pageNumber) {
+    pageIndex++;
+    fetchCharacters();
+  } else {
+    console.log(`The page lies in another dimension`);
   }
 });
 
@@ -71,3 +74,7 @@ searchBar.addEventListener("submit", (event) => {
   searchQuery = searchInput.value;
   fetchCharacters();
 });
+
+// function generateButton() {
+
+// }
