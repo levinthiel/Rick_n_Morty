@@ -15,13 +15,25 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
+let pageIndex = 1;
+
+
 async function fetchCharacters() {
   cardContainer.innerHTML = "";
-  const endpoint = "https://rickandmortyapi.com/api/character?page=1";
+
+  const endpoint = `https://rickandmortyapi.com/api/character?page=${pageIndex}`;
+
   const response = await fetch(endpoint);
   const data = await response.json();
   const characters = data.results;
+  const pageNumber = data.info.pages;
+
+  pagination.textContent = ` ${pageIndex} / ${pageNumber} `
+  console.log(characters);
+
   characters.forEach((character) => {
+
+    //create character
     const src = character.image;
     const name = character.name;
     const status = character.status;
@@ -30,6 +42,21 @@ async function fetchCharacters() {
     const newCharacterCard = CharacterCard(src, name, status, type, occ);
     cardContainer.append(newCharacterCard);
   });
+ 
 }
 
-fetchCharacters();
+nextButton.addEventListener ("click", ()=> {
+    pageIndex++  
+    fetchCharacters();
+})
+
+prevButton.addEventListener ("click", ()=> {
+  if (pageIndex > 1) {
+  pageIndex--  
+  fetchCharacters();
+  }else{
+    console.log("Page 0 lies in another dimension")
+  }
+})
+
+fetchCharacters(); 
